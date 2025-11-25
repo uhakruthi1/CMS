@@ -1,0 +1,16 @@
+<section class="c-section" id="{{ id ?? 'components' }}">
+    <div class="c-section__heading">
+        {% if eyebrow ?? false %}
+            <span class="c-badge">{{ eyebrow }}</span>
+        {% endif %}
+        <h2>{{ title }}</h2>
+        {% if description ?? false %}
+            <p>{{ description }}</p>
+        {% endif %}
+    </div>
+    <div class="c-grid">
+        {% for item in items ?? [] %}
+            {% include '_components/card.twig' with item %}
+        {% endfor %}
+    </div>
+</section>

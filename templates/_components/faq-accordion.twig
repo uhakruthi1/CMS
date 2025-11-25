@@ -1,0 +1,30 @@
+{% set categories = categories ?? [] %}
+{% set openSlug = openSlug ?? null %}
+<div class="faq-accordion">
+    {% for category in categories %}
+        <div class="faq-accordion__group" id="{{ category.slug }}">
+            <div class="faq-accordion__heading">
+                <h3>{{ category.title }}</h3>
+                {% if category.faqs|length %}
+                    <span class="faq-accordion__count">{{ category.faqs|length }} answers</span>
+                {% endif %}
+            </div>
+            <div class="faq-accordion__items">
+                {% for faq in category.faqs %}
+                    {% set isOpen = openSlug and openSlug == faq.slug %}
+                    <details {{ isOpen ? 'open' }}>
+                        <summary>
+                            <span>{{ faq.title }}</span>
+                            <span class="faq-accordion__icon">+</span>
+                        </summary>
+                        <div class="faq-accordion__content">
+                            {{ faq.faqAnswer|raw }}
+                        </div>
+                    </details>
+                {% else %}
+                    <p class="faq-accordion__empty">No FAQs yet for this category.</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>

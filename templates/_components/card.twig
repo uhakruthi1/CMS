@@ -1,0 +1,23 @@
+<article class="c-card">
+    {% if eyebrow ?? false %}
+        <span class="c-card__eyebrow">{{ eyebrow }}</span>
+    {% endif %}
+    <h3 class="c-card__title">{{ title }}</h3>
+    {% if description ?? false %}
+        <p class="c-card__copy">{{ description }}</p>
+    {% endif %}
+    {% if tags ?? false %}
+        <ul class="c-component-list">
+            {% for tag in tags %}
+                <li>{{ tag }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if link ?? false %}
+        {% include '_components/button.twig' with {
+            text: link.label ?? 'Learn more',
+            url: link.url ?? '#',
+            variant: link.variant ?? 'secondary'
+        } only %}
+    {% endif %}
+</article>

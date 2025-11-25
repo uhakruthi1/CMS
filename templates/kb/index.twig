@@ -1,0 +1,72 @@
+{% extends '_layouts/base' %}
+
+{% set pageTitle = 'Knowledge Base' %}
+
+{% block content %}
+    {% set searchTerm = craft.app.request.getParam('q') ?? '' %}
+    {% set tagSlug = craft.app.request.getParam('tag') ?? null %}
+    {% set articleQuery = craft.entries()
+        .section('knowledgeBase')
+        .with(['kbTags'])
+        .orderBy('postDate DESC') %}
+
+    {% if searchTerm %}
+        {% set articleQuery = articleQuery.search(searchTerm) %}
+    {% endif %}
+    {% if tagSlug %}
+        {% set tagElement = craft.tags().group('knowledgeTags').slug(tagSlug).one() %}
+        {% if tagElement %}
+            {% set articleQuery = articleQuery.relatedTo(tagElement) %}
+        {% endif %}
+    {% endif %}
+
+    {% paginate articleQuery.limit(6) as pageInfo, articles %}
+
+    <section class="c-section">
+        <div class="kb-hero">
+            <div>
+                <span class="c-hero__badge">Docs &amp; Enablement</span>
+                <h1>Answer desk for the entire company</h1>
+                <p>Every FAQ, policy, and onboarding playbook lives here. Filter by tag or search for what you need.</p>
+                {% include '_components/search-bar.twig' with {
+                    id: 'kb-search-input',
+                    label: 'Search knowledge base',
+                    placeholder: 'Search articles...',
+                    buttonText: 'Search',
+                    value: searchTerm
+                } only %}
+            </div>
+            <div class="kb-search__meta">
+                <p><strong>{{ pageInfo.total }}</strong> published articles</p>
+                <p>Role-based permissions keep Admin and Editor workflows safe.</p>
+                {% include '_components/button.twig' with { text: 'View FAQs', url: '/faq', variant: 'secondary' } only %}
+            </div>
+        </div>
+
+        {% set allTags = craft.tags().group('knowledgeTags').orderBy('title').all() %}
+        {% if allTags %}
+            <div class="kb-tags-filter">
+                <span>Filter by tag:</span>
+                <div class="kb-tags-filter__chips">
+                    <a href="/kb"{% if not tagSlug %} class="is-active"{% endif %}>All</a>
+                    {% for tag in allTags %}
+                        <a href="{{ url('kb', { tag: tag.slug, q: searchTerm }) }}" class="{{ tagSlug == tag.slug ? 'is-active' : '' }}">{{ tag.title }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if articles %}
+            <div class="kb-grid">
+                {% for article in articles %}
+                    {% include '_components/article-card.twig' with { article: article } only %}
+                {% endfor %}
+            </div>
+            {% include '_components/pagination.twig' with { pageInfo: pageInfo } only %}
+        {% else %}
+            <div class="kb-empty">
+                <p>No articles found. Clear filters or try another keyword.</p>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

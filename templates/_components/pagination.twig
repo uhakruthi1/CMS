@@ -1,0 +1,11 @@
+{% if pageInfo and pageInfo.totalPages > 1 %}
+<nav class="kb-pagination" aria-label="Pagination">
+    {% if pageInfo.prevUrl %}
+        <a href="{{ pageInfo.prevUrl }}" class="kb-pagination__link">Previous</a>
+    {% endif %}
+    <span class="kb-pagination__status">Page {{ pageInfo.currentPage }} of {{ pageInfo.totalPages }}</span>
+    {% if pageInfo.nextUrl %}
+        <a href="{{ pageInfo.nextUrl }}" class="kb-pagination__link">Next</a>
+    {% endif %}
+</nav>
+{% endif %}

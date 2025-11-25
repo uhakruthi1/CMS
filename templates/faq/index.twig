@@ -1,0 +1,56 @@
+{% extends '_layouts/base' %}
+
+{% set pageTitle = 'FAQs' %}
+
+{% block content %}
+    {% set searchTerm = craft.app.request.getParam('q') ?? '' %}
+    {% set categories = craft.entries()
+        .section('faqCategories')
+        .site('default')
+        .orderBy('title')
+        .all() %}
+
+{% set grouped = [] %}
+{% for category in categories %}
+        {% set faqs = craft.entries()
+            .section('faq')
+            .relatedTo(category)
+            .orderBy('title') %}
+        {% if searchTerm %}
+            {% set faqs = faqs.search(searchTerm) %}
+        {% endif %}
+        {% set grouped = grouped|merge([{
+            title: category.title,
+            slug: category.slug,
+            faqs: faqs.all()
+        }]) %}
+{% endfor %}
+{% set totalFaqs = 0 %}
+{% for group in grouped %}
+    {% set totalFaqs = totalFaqs + group.faqs|length %}
+{% endfor %}
+
+    <section class="c-section">
+        <div class="kb-hero">
+            <div>
+                <span class="c-hero__badge">FAQ Center</span>
+                <h1>Answers grouped by workflow</h1>
+                <p>Support, policy, and onboarding FAQs stay organized by category. Editors manage everything inside Craft CMS.</p>
+                {% include '_components/search-bar.twig' with {
+                    id: 'faq-search',
+                    label: 'Search FAQs',
+                    placeholder: 'Search common questions...',
+                    buttonText: 'Search',
+                    value: searchTerm
+                } only %}
+            </div>
+            <div class="kb-search__meta">
+                <p><strong>{{ totalFaqs }}</strong> answers live.</p>
+                <p>Need a full write-up? Jump into the knowledge base.</p>
+                {% include '_components/button.twig' with { text: 'Go to Knowledge Base', url: '/kb', variant: 'secondary' } only %}
+            </div>
+        </div>
+
+        {% include '_components/faq-accordion.twig' with { categories: grouped, openSlug: craft.app.request.getParam('open') } only %}
+    </section>
+{% endblock %}

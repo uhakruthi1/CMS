@@ -1,0 +1,32 @@
+{% extends '_layouts/base' %}
+
+{% set pageTitle = entry.title %}
+
+{% set category = entry.faqCategory.one() %}
+
+{% block content %}
+    <section class="c-section">
+        {% include '_components/breadcrumbs.twig' with {
+            crumbs: [
+                { label: 'Home', url: '/' },
+                { label: 'FAQs', url: '/faq' },
+                { label: entry.title }
+            ]
+        } only %}
+
+        <article class="kb-article">
+            <header>
+                {% if category %}
+                    <span class="c-badge">{{ category.title }}</span>
+                {% endif %}
+                <h1>{{ entry.title }}</h1>
+            </header>
+            <div class="kb-article__body">
+                {{ entry.faqAnswer|raw }}
+            </div>
+            <footer class="kb-article__footer">
+                <p>Still stuck? Explore the <a href="/kb">knowledge base</a> for long-form guides.</p>
+            </footer>
+        </article>
+    </section>
+{% endblock %}

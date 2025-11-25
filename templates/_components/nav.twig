@@ -1,0 +1,20 @@
+{% set logoText = logoText ?? 'Craft Components' %}
+<div class="c-nav">
+    <div class="c-nav__brand">
+        <span class="c-badge">v1.0</span>
+        <strong>{{ logoText }}</strong>
+    </div>
+    <ul class="c-nav__links">
+        {% for link in links ?? [] %}
+            <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+        {% endfor %}
+    </ul>
+    {% if cta is defined and cta %}
+        {% include '_components/button.twig' with {
+            text: cta.label,
+            url: cta.url,
+            variant: cta.variant ?? 'primary',
+            isExternal: cta.isExternal ?? false
+        } only %}
+    {% endif %}
+</div>

@@ -1,0 +1,20 @@
+{% set variant = variant ?? 'primary' %}
+{% set size = size ?? 'md' %}
+{% set tag = tag ?? 'a' %}
+{% set classes = [
+    'c-button',
+    'c-button--' ~ variant,
+    size == 'lg' ? 'c-button--lg',
+    fullWidth ?? false ? 'c-button--block'
+]|filter %}
+{% if tag == 'button' %}
+    <button type="{{ type ?? 'button' }}" class="{{ classes|join(' ') }}">
+        {{ text }}
+    </button>
+{% else %}
+    <a href="{{ url ?? '#' }}"
+       class="{{ classes|join(' ') }}"
+       {% if isExternal ?? false %}target="_blank" rel="noopener noreferrer"{% endif %}>
+        {{ text }}
+    </a>
+{% endif %}

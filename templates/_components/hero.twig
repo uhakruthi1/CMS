@@ -1,0 +1,33 @@
+<section class="c-hero" id="{{ id ?? 'hero' }}">
+    <div>
+        {% if badge ?? false %}
+            <span class="c-hero__badge">{{ badge }}</span>
+        {% endif %}
+        <h1 class="c-hero__title">{{ title }}</h1>
+        {% if subtitle ?? false %}
+            <p class="c-hero__subtitle">{{ subtitle }}</p>
+        {% endif %}
+        {% if actions ?? [] %}
+            <div class="c-hero__actions">
+                {% for action in actions %}
+                    {% include '_components/button.twig' with {
+                        text: action.label,
+                        url: action.url ?? '#',
+                        variant: action.variant ?? 'primary',
+                        isExternal: action.isExternal ?? false
+                    } only %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="c-hero__panel">
+        <p style="margin-top: 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.7);">
+            Included components
+        </p>
+        <ul>
+            {% for feature in features ?? [] %}
+                <li>• {{ feature }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>

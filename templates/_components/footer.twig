@@ -1,0 +1,20 @@
+<div class="c-footer">
+    <div>
+        <strong>Craft Component Library</strong>
+        <p style="margin: 0.25rem 0 0; color: rgba(255,255,255,0.7); font-size: 0.9rem;">
+            Built with Twig components & clean CSS tokens.
+        </p>
+    </div>
+    <div>
+        <ul class="c-footer__links">
+            {% for link in links ?? [] %}
+                <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+            {% endfor %}
+        </ul>
+        <ul class="c-footer__social" style="margin-top: 0.75rem;">
+            {% for item in social ?? [] %}
+                <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

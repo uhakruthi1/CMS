@@ -1,0 +1,190 @@
+{% extends '_layouts/base' %}
+
+{% set pageTitle = 'Documentation' %}
+{% set navLinks = [
+    { label: 'Home', url: '/' },
+    { label: 'Components', url: '#component-list' },
+    { label: 'Usage', url: '#usage' }
+] %}
+
+{% block content %}
+    <section class="c-section" id="component-list">
+        <div class="c-section__heading">
+            <span class="c-badge">Phase 5 - Documentation</span>
+            <h2>Component reference</h2>
+            <p>Drop any of these Twig templates into your Craft entries or section layouts.</p>
+        </div>
+
+        {% set components = [
+            {
+                id: 'button',
+                name: 'Button',
+                inputs: [
+                    'text (string) - label that appears inside the CTA',
+                    'url (string) - destination link',
+                    'variant (primary|secondary|ghost)',
+                    'tag (a|button) - defaults to anchor',
+                    'isExternal (bool) - adds noopener rel + target',
+                    'fullWidth (bool) - stretches button to 100%'
+                ],
+                snippet: "{% include '_components/button.twig' with {\n    text: 'View Docs',\n    url: '/docs',\n    variant: 'primary'\n} only %}"
+            },
+            {
+                id: 'card',
+                name: 'Card',
+                inputs: [
+                    'title (string)',
+                    'description (string)',
+                    'eyebrow (string) - optional top label',
+                    'tags (array) - quick bullet list',
+                    'link (object) - { label, url, variant }'
+                ],
+                snippet: "{% include '_components/card.twig' with {\n    eyebrow: 'Feature',\n    title: 'Composable Twig blocks',\n    description: 'Pair cards with grid layout for responsive feature rows.',\n    link: { label: 'Read more', url: '#' }\n} %}"
+            },
+            {
+                id: 'hero',
+                name: 'Hero',
+                inputs: [
+                    'title (string)',
+                    'subtitle (string)',
+                    'badge (string) - small label above title',
+                    'actions (array) - pass CTA buttons',
+                    'features (array) - bullet list displayed inside the dark panel'
+                ],
+                snippet: "{% include '_components/hero.twig' with {\n    badge: 'Release',\n    title: 'Design system ready',\n    subtitle: 'Ship consistent marketing pages in Craft.',\n    actions: [\n        { label: 'Get started', url: '#' },\n        { label: 'Playground', url: '#components', variant: 'secondary' }\n    ],\n    features: ['Hero', 'Card', 'Grid']\n} %}"
+            },
+            {
+                id: 'grid',
+                name: 'Grid Layout',
+                inputs: [
+                    'title (string)',
+                    'description (string)',
+                    'eyebrow (string)',
+                    'items (array of card props)'
+                ],
+                snippet: "{% include '_components/grid.twig' with {\n    title: 'Feature grid',\n    items: entries|map(e => {\n        title: e.title,\n        description: e.summary,\n        link: { label: 'Read', url: e.url }\n    })\n} %}"
+            },
+            {
+                id: 'nav',
+                name: 'Navigation',
+                inputs: [
+                    'links (array) - { label, url }',
+                    'cta (object) - optional action button',
+                    'logoText (string)'
+                ],
+                snippet: "{% include '_components/nav.twig' with {\n    logoText: 'Craft Components',\n    links: [\n        { label: 'Home', url: '/' },\n        { label: 'Docs', url: '/docs' }\n    ],\n    cta: { label: 'GitHub', url: 'https://github.com' }\n} %}"
+            },
+            {
+                id: 'footer',
+                name: 'Footer',
+                inputs: [
+                    'links (array)',
+                    'social (array)'
+                ],
+                snippet: "{% include '_components/footer.twig' with {\n    links: [\n        { label: 'Docs', url: '/docs' },\n        { label: 'GitHub', url: 'https://github.com' }\n    ],\n    social: [\n        { label: 'Twitter', url: 'https://twitter.com' }\n    ]\n} %}"
+            },
+            {
+                id: 'article-card',
+                name: 'Article Card',
+                inputs: [
+                    'article (Entry) - Knowledge Base entry model'
+                ],
+                snippet: "{% include '_components/article-card.twig' with {\n    article: entry\n} only %}"
+            },
+            {
+                id: 'faq-accordion',
+                name: 'FAQ Accordion',
+                inputs: [
+                    'categories (array) - each item: { title, slug, faqs }',
+                    'openSlug (string) - optional slug to auto-open'
+                ],
+                snippet: "{% include '_components/faq-accordion.twig' with {\n    categories: groupedFaqs,\n    openSlug: craft.app.request.getParam('open')\n} only %}"
+            },
+            {
+                id: 'tag-badge',
+                name: 'Tag Badge',
+                inputs: [
+                    'label (string)'
+                ],
+                snippet: "{% include '_components/tag-badge.twig' with {\n    label: 'Onboarding'\n} only %}"
+            },
+            {
+                id: 'breadcrumbs',
+                name: 'Breadcrumbs',
+                inputs: [
+                    'crumbs (array) - { label, url } list'
+                ],
+                snippet: "{% include '_components/breadcrumbs.twig' with {\n    crumbs: [\n        { label: 'Home', url: '/' },\n        { label: 'Knowledge Base', url: '/kb' },\n        { label: entry.title }\n    ]\n} only %}"
+            },
+            {
+                id: 'pagination',
+                name: 'Pagination',
+                inputs: [
+                    'pageInfo (craft\\\\models\\\\Pagination)'
+                ],
+                snippet: "{% include '_components/pagination.twig' with {\n    pageInfo: pageInfo\n} only %}"
+            },
+            {
+                id: 'search-bar',
+                name: 'Search Bar',
+                inputs: [
+                    'id (string) - unique input id',
+                    'label (string)',
+                    'placeholder (string)',
+                    'value (string) - forwarded query param',
+                    'action (string) - optional form action',
+                    'buttonText (string)'
+                ],
+                snippet: "{% include '_components/search-bar.twig' with {\n    id: 'kb-search-input',\n    label: 'Search knowledge base',\n    placeholder: 'Search articles...'\n} only %}"
+            }
+        ] %}
+
+        {% for component in components %}
+            <article class="c-card" id="{{ component.id }}">
+                <span class="c-card__eyebrow">{{ '%02d'|format(loop.index) }}</span>
+                <h3 class="c-card__title">{{ component.name }}</h3>
+                <h4 style="margin: 0; font-size: 0.95rem; color: var(--color-mid);">Inputs</h4>
+                <ul class="c-component-list">
+                    {% for input in component.inputs %}
+                        <li>{{ input }}</li>
+                    {% endfor %}
+                </ul>
+                <h4 style="margin: 0.5rem 0 0; font-size: 0.95rem; color: var(--color-mid);">Example Twig</h4>
+                <pre><code>{{ component.snippet|e }}</code></pre>
+            </article>
+        {% endfor %}
+    </section>
+
+    <section class="c-section" id="usage">
+        <div class="c-section__heading">
+            <span class="c-badge">How to use</span>
+            <h2>Project workflow</h2>
+            <p>Mirror a real delivery cadence with components + docs.</p>
+        </div>
+        <div class="c-grid">
+            {% for step in [
+                {
+                    title: 'Create structure',
+                    detail: 'Add templates/_components for Twig partials and templates/_layouts for shared boilerplate.'
+                },
+                {
+                    title: 'Build components',
+                    detail: 'Start with button + card, then compose hero, grid, nav, footer, FAQ accordion, and article cards.'
+                },
+                {
+                    title: 'Document everything',
+                    detail: 'Keep this docs page updated with inputs, usage snippets, and commit references.'
+                },
+                {
+                    title: 'Deploy & share',
+                    detail: 'Push to GitHub with meaningful commits, then deploy to Netlify or Vercel for a live URL.'
+                }
+            ] %}
+                <div class="c-card">
+                    <h3 class="c-card__title">{{ step.title }}</h3>
+                    <p class="c-card__copy">{{ step.detail }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

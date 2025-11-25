@@ -1,0 +1,155 @@
+{% extends '_layouts/base' %}
+
+{% set pageTitle = 'Component Library' %}
+{% set navLinks = [
+    { label: 'Components', url: '#components' },
+    { label: 'Showcase', url: '#showcase' },
+    { label: 'Docs', url: '/docs' }
+] %}
+
+{% block content %}
+    {% include '_components/hero.twig' with {
+        badge: 'Craft CMS & Twig',
+        title: 'Craft Component Library',
+        subtitle: 'Reusable UI primitives, clean folder structure, and a living documentation site built with Twig templates.',
+        actions: [
+            { label: 'View Documentation', url: '/docs' },
+            { label: 'Browse Components', url: '#components', variant: 'secondary' }
+        ],
+        features: [
+            'Buttons + cards + hero block',
+            'Grid layout helpers',
+            'Navigation & footer',
+            'Sample docs + landing page'
+        ]
+    } %}
+
+    {% include '_components/grid.twig' with {
+        eyebrow: 'Phase 1 - Core components',
+        title: 'Reusable Twig components',
+        description: 'Each component lives in templates/_components and can be dropped into any Craft template.',
+        items: [
+            {
+                title: 'Button',
+                eyebrow: '01',
+                description: 'Consistent CTA styles with support for variants, sizes, block layout, and semantic button tags.',
+                link: { label: 'Use button', url: '/docs#button' }
+            },
+            {
+                title: 'Card',
+                eyebrow: '02',
+                description: 'Flexible content blocks to highlight products, posts, or KPIs. Accepts eyebrow text, copy, and CTA.',
+                link: { label: 'Use card', url: '/docs#card' }
+            },
+            {
+                title: 'Hero',
+                eyebrow: '03',
+                description: 'Above-the-fold banner with badge, title, subtitle, CTA buttons, and a feature checklist panel.',
+                link: { label: 'Use hero', url: '/docs#hero' }
+            },
+            {
+                title: 'Grid',
+                eyebrow: '04',
+                description: 'Auto-fit layout helper that renders any number of cards responsively.',
+                link: { label: 'Use grid', url: '/docs#grid' }
+            },
+            {
+                title: 'Navigation',
+                eyebrow: '05',
+                description: 'Sticky header with logo, nav links, and optional CTA button for product tours or docs.',
+                link: { label: 'Use nav', url: '/docs#nav' }
+            },
+            {
+                title: 'Footer',
+                eyebrow: '06',
+                description: 'Global footer with quick links and social icons to wrap every page consistently.',
+                link: { label: 'Use footer', url: '/docs#footer' }
+            }
+        ]
+    } %}
+
+    <section class="c-section" id="showcase">
+        <div class="c-section__heading">
+            <span class="c-badge">Phase 3 - Sample page</span>
+            <h2>Landing page preview</h2>
+            <p>Combine the hero, grid, navigation, and footer components to ship a complete marketing page.</p>
+        </div>
+        <div class="c-card" style="padding: 0;">
+            <div style="padding: 2rem 2rem 0;">
+                <div class="c-hero__badge">Live preview</div>
+                <h3 style="margin: 1rem 0 0;">Launch faster with ready-to-use Twig partials</h3>
+                <p class="c-card__copy">Drop the hero section at the top, follow up with a grid of cards, and finish the page with the shared navigation + footer.</p>
+                <div class="c-hero__actions">
+                    {% include '_components/button.twig' with { text: 'Primary CTA', url: '#', variant: 'primary' } only %}
+                    {% include '_components/button.twig' with { text: 'Secondary CTA', url: '#', variant: 'secondary' } only %}
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--color-border); padding: 1.5rem 2rem; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                {% for item in [
+                    { label: 'Hero + CTA', detail: 'Communicate the value prop with badge, title, subtitle, and buttons.' },
+                    { label: 'Grid layout', detail: 'Quickly showcase features, services, or CMS entries.' },
+                    { label: 'Navigation', detail: 'Single source of truth for links + CTA button.' },
+                    { label: 'Footer', detail: 'Consistent contact and resource links sitewide.' }
+                ] %}
+                    <div>
+                        <strong>{{ item.label }}</strong>
+                        <p style="margin: 0.35rem 0 0; color: var(--color-mid); font-size: 0.95rem;">
+                            {{ item.detail }}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="c-section" id="deploy">
+        <div class="c-section__heading">
+            <span class="c-badge">Phase 4 - Deployment</span>
+            <h2>Ready for GitHub + hosting</h2>
+            <p>Follow the suggested commit history and push to Netlify, Vercel, or DigitalOcean for instant credibility.</p>
+        </div>
+        <div class="c-grid">
+            {% for action in [
+                {
+                    title: 'Commit cadence',
+                    description: 'Initial setup -> Button -> Hero -> Grid -> Documentation. Each commit highlights learning milestones.'
+                },
+                {
+                    title: 'Docs page',
+                    description: 'Keep props, sample usage, and screenshots together so recruiters see how to consume each component.'
+                },
+                {
+                    title: 'Deployment',
+                    description: 'Ship a live URL with Netlify/Vercel to demonstrate end-to-end craft skills.'
+                }
+            ] %}
+                <div class="c-card">
+                    <h3 class="c-card__title">{{ action.title }}</h3>
+                    <p class="c-card__copy">{{ action.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="c-section" id="knowledge-base">
+        <div class="c-section__heading">
+            <span class="c-badge">Phase 5 - Knowledge base</span>
+            <h2>Dynamic FAQ + Knowledge Base</h2>
+            <p>Demo content modeling with sections, fields, role-based access, and front-end Twig logic.</p>
+        </div>
+        <div class="kb-hero">
+            <div>
+                <h3>CMS structure</h3>
+                <ul class="c-component-list">
+                    <li>Knowledge Base (channel) - summary, body, tags, related entries</li>
+                    <li>FAQ (channel) - linked to FAQ Categories structure</li>
+                    <li>Knowledge tags and reusable Twig components</li>
+                </ul>
+            </div>
+            <div class="kb-search__meta">
+                <p>Seeded demo data lives at <strong>/kb</strong> and <strong>/faq</strong>.</p>
+                <p>Use <code>php craft knowledgebase/install</code> to rebuild content locally.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

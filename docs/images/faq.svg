@@ -1,0 +1,29 @@
+<svg width="960" height="540" viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">FAQ system illustration</title>
+  <desc id="desc">Categorized FAQ accordion with grouped cards.</desc>
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdf6ff" />
+      <stop offset="100%" stop-color="#f4f9ff" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="24" fill="url(#bg3)" />
+  <rect x="80" y="70" width="360" height="360" rx="24" fill="#fff" stroke="#f1d8ff" stroke-width="3" />
+  <rect x="470" y="70" width="410" height="360" rx="24" fill="#fff" stroke="#d7e3ff" stroke-width="3" />
+  <text x="120" y="120" font-family="'Inter', sans-serif" font-size="24" fill="#9333ea" font-weight="600">FAQ Categories</text>
+  <text x="510" y="120" font-family="'Inter', sans-serif" font-size="24" fill="#2563eb" font-weight="600">Workflow Answers</text>
+  <g font-family="'Inter', sans-serif" font-size="18" fill="#475569">
+    <text x="120" y="170">Getting Started</text>
+    <text x="120" y="210">Account &amp; Security</text>
+    <text x="120" y="250">Operations &amp; Support</text>
+    <text x="120" y="290">Integrations</text>
+  </g>
+  <g font-family="'Inter', sans-serif" font-size="18" fill="#0f172a">
+    <text x="510" y="170">How do I publish a new KB article?</text>
+    <text x="510" y="210">Who can update policies?</text>
+    <text x="510" y="250">How do I report duplicate FAQs?</text>
+    <text x="510" y="290">What happens during escalation?</text>
+  </g>
+  <rect x="510" y="325" width="320" height="46" rx="23" fill="#f8fafc" stroke="#dee7ff" />
+  <text x="530" y="355" font-family="'Inter', sans-serif" font-size="18" fill="#94a3b8">Search common questions...</text>
+</svg>

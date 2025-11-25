@@ -1,0 +1,23 @@
+{% set formId = id ?? 'search-input' %}
+{% set formAction = action ?? craft.app.request.url %}
+{% set formMethod = method ?? 'get' %}
+{% set inputName = name ?? 'q' %}
+{% set currentValue = value ?? craft.app.request.getParam(inputName) ?? '' %}
+{% set labelText = label ?? 'Search' %}
+{% set hideLabel = hideLabel is defined ? hideLabel : true %}
+{% set placeholderText = placeholder ?? 'Search...' %}
+{% set buttonText = buttonText ?? 'Search' %}
+{% set extraClasses = extraClasses ?? '' %}
+
+<form action="{{ formAction }}" method="{{ formMethod }}" class="kb-search {{ extraClasses }}">
+    <label for="{{ formId }}" class="{{ hideLabel ? 'sr-only' : '' }}">{{ labelText }}</label>
+    <input
+        id="{{ formId }}"
+        type="text"
+        name="{{ inputName }}"
+        placeholder="{{ placeholderText }}"
+        value="{{ currentValue }}"
+        autocomplete="off"
+    >
+    <button type="submit">{{ buttonText }}</button>
+</form>

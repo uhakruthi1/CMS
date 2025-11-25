@@ -1,0 +1,22 @@
+dateModified: 1764101581
+email:
+  fromEmail: admin@example.com
+  fromName: 'Craft Component Library'
+  transportType: craft\mail\transportadapters\Sendmail
+meta:
+  __names__:
+    116098ba-3354-4b32-8c07-a1d823f24fa0: 'Craft Component Library' # Craft Component Library
+    51654125-ba3b-4c46-a00b-0a3643243efd: 'Craft Component Library' # Craft Component Library
+system:
+  edition: solo
+  live: true
+  name: 'Craft Component Library'
+  schemaVersion: 5.8.0.3
+  timeZone: America/Los_Angeles
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: null
+  photoVolumeUid: null
+  require2fa: false
+  requireEmailVerification: true
