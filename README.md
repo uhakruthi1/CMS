@@ -3,9 +3,9 @@
 Reusable Craft CMS + Twig project that ships a marketing-style landing page, a documentation hub, and a fully modeled knowledge base / FAQ workflow. Editors manage entries inside Craft, while the front-end uses reusable partials (`templates/_components`) so every page stays consistent.
 
 
-![Landing page](docs/images/home.svg)
-![Knowledge base grid](docs/images/kb.svg)
-![FAQ accordion](docs/images/faq.svg)
+![Landing page](docs/images/home.png)
+![Knowledge base grid](docs/images/kb.png)
+![FAQ accordion](docs/images/faq.png)
 
 ## Highlights
 - Component-driven Twig partials (nav, buttons, cards, grids, hero, search, article cards, FAQ accordion, pagination).
